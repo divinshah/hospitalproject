@@ -33,3 +33,13 @@
         display: none;
     }
 }
+.img-container img {
+    width: 100%;
+}
+.img-container {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+    position: relative;
+}
