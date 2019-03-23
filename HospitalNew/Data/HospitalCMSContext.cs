@@ -42,9 +42,9 @@ namespace HospitalNew.Data
                 .HasKey(pxt => new { pxt.JobID, pxt.ResumeID });
 
             modelBuilder.Entity<JobPositionxResume>()
-                .HasOne(pxt => pxt.JobPosition)
-                .WithMany(pxt => pxt.jobpositionsxresumes)
-                .HasForeignKey(pxt => pxt.JobID);
+                .HasOne(t => t.JobPosition)
+                .WithMany(t => t.jobpositionsxresumes)
+                .HasForeignKey(t => t.JobID);
 
 
             modelBuilder.Entity<JobPositionxResume>()
