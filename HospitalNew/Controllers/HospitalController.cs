@@ -27,6 +27,7 @@ namespace HospitalNew.Controllers
     {
         //makes a HospitalCMSContext
         private readonly HospitalCMSContext db;
+
         private readonly IHostingEnvironment _env;
 
         public HospitalController(HospitalCMSContext context, IHostingEnvironment env)
@@ -38,6 +39,8 @@ namespace HospitalNew.Controllers
         {
             db = context;
         }
+
+
         // GET: Hospitals
         public ActionResult Index()
         {

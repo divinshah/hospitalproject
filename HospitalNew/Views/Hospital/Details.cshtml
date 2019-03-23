@@ -1,0 +1,50 @@
+﻿@model HospitalNew.Models.Hospital
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="promptlink">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.HospitalID })
+</div>
+<div class="promptlinkleft">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<div>
+    <div class="authoraltar">
+        <div class="img-container">
+            @if (Model.HasPic == 1)
+            {
+
+                <div class="img-container">
+                    <img src="~/images/hospitals/@(Model.HospitalID).@(Model.ImgType)" />
+                </div>
+            }
+            else
+            {
+                <img src="~/imgs/authors/default.jpg" />
+            }
+        </div>
+        <h2>@Model.HospitalTitle </h2>
+    </div>
+
+    <h4>Vacancies in  the hospital @Model.HospitalTitle</h4>
+    @if (Model.JobPosition != null)
+    {
+        <div class="inprow">
+            @foreach (var jobposition in Model.JobPositions)
+            {
+                <div class="recitem">
+                    @Html.ActionLink(jobposition.JobTitle, "Show/" + jobposition.JobID, "JobPosition")
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <span style="font-style:italic;">You don't have any jobposition yet.</span>
+    }
+    @Html.ActionLink("Create a New Job Position!", "New", "JobPosition")
+</div>
+

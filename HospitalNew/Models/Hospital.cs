@@ -29,15 +29,16 @@ namespace HospitalNew.Models
         [StringLength(int.MaxValue), Display(Name = "Description")]
         public string Description { get; set; }
 
-        //Hospital has jobposition ID
-
-        [ForeignKey("JobID")]
-        public int JobID { get; set; }
 
         //Hospital and Job Positions
         public virtual JobPosition JobPosition { get; set; }
-        public IEnumerable<HospitalxJobPosition> hospitalsxjobpositions { get; internal set; }
-        public int HasPic { get; internal set; }
-        public string ImgType { get; internal set; }
+
+        //Accepted image formats (jpg/jpeg/png/gif)
+        public string ImgType { get; set; }
+
+        public int HasPic { get; set; }
+
+        [InverseProperty("Hospital")]
+        public List<JobPosition> JobPositions { get; set; }
     }
 }
