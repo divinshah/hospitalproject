@@ -26,17 +26,20 @@ namespace HospitalNew
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<HospitalNewContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<HospitalNewContext>()
                 .AddDefaultTokenProviders();
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+
+            services.AddDbContext<HospitalNewContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("HospitalNewContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
