@@ -10,6 +10,8 @@ namespace HospitalNew.Models
 {
     public class JobPosition
     {
+        internal IEnumerable<JobPositionxResume> jobpositionsxresumes;
+
         [Key, ScaffoldColumn(false)]
         public int JobID { get; set; }
 
@@ -37,7 +39,15 @@ namespace HospitalNew.Models
         //JobPosition has hospital ID
         [ForeignKey("HospitalID")]
         public int HospitalID { get; set; }
-        //Blog Author
+        //JobPosition Hospital
         public virtual Hospital Hospital { get; set; }
+
+        //position has resume ID
+        [ForeignKey("ResumeID")]
+        public int ResumeID { get; set; }
+
+        [InverseProperty("JobPosition")]
+        public virtual List<JobPositionxResume> Jobpositionsxresumes { get; set; }
+
     }
 }

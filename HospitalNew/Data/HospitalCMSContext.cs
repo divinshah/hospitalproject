@@ -23,6 +23,10 @@ namespace HospitalNew.Data
 
         public DbSet<Hospital> Hospitals { get; set; }
         public DbSet<JobPosition> JobPositions { get; set; }
+        public DbSet<Resume> Resumes { get; set; }
+
+        
+      
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +35,25 @@ namespace HospitalNew.Data
                 .HasOne(b => b.Hospital)
                 .WithMany(a => a.JobPositions)
                 .HasForeignKey(b => b.HospitalID);
+
+            modelBuilder.Entity<JobPositionxResume>()
+                .HasKey(pxt => new { pxt.JobID, pxt.ResumeID });
+
+            modelBuilder.Entity<JobPositionxResume>()
+                .HasOne(pxt => pxt.JobPosition)
+                .WithMany(pxt => pxt.jobpositionsxresumes)
+                .HasForeignKey(pxt => pxt.JobID);
+
+
+            modelBuilder.Entity<JobPositionxResume>()
+                .HasOne(pxt => pxt.Resume)
+                .WithMany(pxt => pxt.jobpositionsxresumes)
+                .HasForeignKey(pxt => pxt.ResumeID);
+
+
+            //includes
+
+
 
 
 
@@ -41,8 +64,8 @@ namespace HospitalNew.Data
             //also need to specify that these models make tables
             modelBuilder.Entity<Hospital>().ToTable("Hospitals");
             modelBuilder.Entity<JobPosition>().ToTable("JobPositions");
-            
-
+            modelBuilder.Entity<Resume>().ToTable("Resumes");
+            modelBuilder.Entity<JobPositionxResume>().ToTable("jobositionsxresumes");
 
         }
     }
