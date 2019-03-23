@@ -24,12 +24,14 @@ namespace HospitalNew.Data
         public DbSet<Hospital> Hospitals { get; set; }
         public DbSet<JobPosition> JobPositions { get; set; }
         public DbSet<Resume> Resumes { get; set; }
+        public DbSet<Feedback> Feedback { get; set; }
 
-        
-      
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Feedback>().ToTable("Feedback");
             //Hospital has many jobpositions, each position has one hospital
             modelBuilder.Entity<JobPosition>()
                 .HasOne(b => b.Hospital)
