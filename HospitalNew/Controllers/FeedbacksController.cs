@@ -6,14 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HospitalNew.Models;
+using HospitalNew.Data;
 
 namespace HospitalNew.Controllers
 {
     public class FeedbacksController : Controller
     {
-        private readonly HospitalNewContext _context;
+        private readonly HospitalCMSContext _context;
 
-        public FeedbacksController(HospitalNewContext context)
+        public FeedbacksController(HospitalCMSContext context)
         {
             _context = context;
         }

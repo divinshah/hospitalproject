@@ -26,11 +26,11 @@ namespace HospitalNew
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<HospitalNewContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            /*services.AddDbContext<HospitalCMSContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("HospitalCMS")));*/
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<HospitalNewContext>()
+                .AddEntityFrameworkStores<HospitalCMSContext>()
                 .AddDefaultTokenProviders();
 
             // Add application services.
@@ -38,7 +38,7 @@ namespace HospitalNew
 
             services.AddMvc();
 
-            services.AddDbContext<HospitalNewContext>(options =>
+            services.AddDbContext<HospitalCMSContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("HospitalNewContext")));
         }
 
