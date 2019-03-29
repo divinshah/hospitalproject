@@ -1,86 +1,75 @@
-﻿@model HospitalNew.Models.Hospital
+﻿@model IEnumerable<HospitalNew.Models.JobApplication>
 @{
-    ViewData["Title"] = "Edit";
+    ViewBag.Title = "Index";
 }
 
-<h2>Edit</h2>
-@using (Html.BeginForm("Edit", "Hospital", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
+<h2>Job Applications</h2>
 
-<div class="form-horizontal">
-    <h4>Hospital</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    @Html.HiddenFor(model => model.HospitalID)
-    <div class="form-group">
-        @Html.LabelFor(model => model.HospitalTitle, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.HospitalTitle, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.HospitalTitle, "", new { @class = "text-danger" })
-        </div>
-    </div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.JobPositionID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CoverLetter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Summary)
+        </th>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    </tr>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    
-    <div class="form-group">
-        <label>Current Picture:</label>
-        @if (Model.HasPic == 1)
-        {
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
 
-            <div class="img-container">
-                <img src="~/images/hospitals/@(Model.HospitalID).@(Model.ImgType)" />
-            </div>
-        }
-        else
-        {
-            <span>None</span>
-        }
-    </div>
-    <div class="form-group">
-        <label>Profile Picture:</label>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
 
-        <input type="file" name="hospitalimg" id="hospitalimg" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
 
-    </div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CoverLetter)
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
-</div>
-}
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Summary)
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+            </td>
+
+            <td>
+
+                @Html.ActionLink("Details", "Details", new { id = item.JobApplicationID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.JobApplicationID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+

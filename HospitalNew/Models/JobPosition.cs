@@ -10,22 +10,20 @@ namespace HospitalNew.Models
 {
     public class JobPosition
     {
-        internal IEnumerable<JobPositionxResume> jobpositionsxresumes;
 
         [Key, ScaffoldColumn(false)]
         public int JobID { get; set; }
 
+
+        // QUESTION FOR GROUP: IS SOMEONE DOING DEPARTMENTS?
         [Required, StringLength(255), Display(Name = "HospitalTitle")]
         public string HospitalTitle { get; set; }
 
         [Required, StringLength(255), Display(Name = "Title")]
         public string JobTitle { get; set; }
 
-        [Required, StringLength(255), Display(Name = "Category")]
-        public string Category { get; set; }
-
         [Required, StringLength(255), Display(Name = "Type")]
-        public string JobType { get; set; }
+        public string JobType { get; set; } //This talks about partime, fulltime, etc.
 
         [StringLength(int.MaxValue), Display(Name = "Description")]
         public string JobDesc { get; set; }
@@ -33,21 +31,29 @@ namespace HospitalNew.Models
         [StringLength(int.MaxValue), Display(Name = "Requirements")]
         public string JobReq { get; set; }
 
-        [Required, StringLength(255), Display(Name = "Deadline")]
-        public string Deadline { get; set; }
+        //a job position has many applications
+        public virtual IEnumerable<JobApplication> jobapplications { get; set; }
 
-        //JobPosition has hospital ID
-        [ForeignKey("HospitalID")]
-        public int HospitalID { get; set; }
-        //JobPosition Hospital
+
+        // job has one hospital
         public virtual Hospital Hospital { get; set; }
 
-        //position has resume ID
-        [ForeignKey("ResumeID")]
-        public int ResumeID { get; set; }
+        [ForeignKey("Hospital")]
+        public int HospitalID { get; set; }
 
-        [InverseProperty("JobPosition")]
-        public virtual List<JobPositionxResume> Jobpositionsxresumes { get; set; }
+        //job has one department
+        public virtual Department Department { get; set; }
 
+        [ForeignKey("Department")]
+        public int DepartmentID { get; set; }
+
+
+
+        [ForeignKey("JobApplication")]
+        public int JobApplicationID { get; set; }
+
+        IEnumerable<JobApplication> JobApplications { get; set; }
     }
+
 }
+

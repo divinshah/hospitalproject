@@ -30,32 +30,32 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.HospitalTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HospitalTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
 
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
 
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
 
-        </td>
+            </td>
 
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.HospitalID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.HospitalID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.HospitalID })
-        </td>
-    </tr>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.HospitalID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.HospitalID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.HospitalID })
+            </td>
+        </tr>
     }
 
 </table>

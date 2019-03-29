@@ -26,19 +26,16 @@ namespace HospitalNew.Controllers
     public class HospitalController : Controller
     {
         //makes a HospitalCMSContext
-        private readonly HospitalCMSContext db;
+        private readonly HospitalNewContext db;
 
         private readonly IHostingEnvironment _env;
 
-        public HospitalController(HospitalCMSContext context, IHostingEnvironment env)
+        public HospitalController(HospitalNewContext context, IHostingEnvironment env)
         {
             db = context;
             _env = env;
         }
-        public HospitalController(HospitalCMSContext context)
-        {
-            db = context;
-        }
+
 
 
         // GET: Hospitals
@@ -47,11 +44,27 @@ namespace HospitalNew.Controllers
 
             return View(db.Hospitals.ToList());
         }
+
+        public ActionResult List()
+        {
+
+
+            string query = "select * from hospitals";
+
+            IEnumerable<Hospital> hospitals = db.Hospitals.FromSql(query);
+
+            return View(hospitals);
+
+        }
+
+
         public ActionResult Show(int id)
         {
             //wrapper
             return RedirectToAction("Details/" + id);
         }
+
+
         // GET: Hospitals/Create
         public ActionResult Create()
         {
@@ -59,7 +72,7 @@ namespace HospitalNew.Controllers
         }
 
         // POST: Hospitals/Create
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind("HospitalID,HospitalTitle,Address,Email,Phone,Description")] Hospital hospital)
@@ -74,8 +87,11 @@ namespace HospitalNew.Controllers
 
             return View(hospital);
         }
+
+
+
         // POST: Hospitals/Edit/5
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind("HospitalID,HospitalTitle,Address,Phone, Description")] Hospital hospital, IFormFile authorimg)
@@ -87,14 +103,14 @@ namespace HospitalNew.Controllers
             {
                 if (authorimg.Length > 0)
                 {
-                    
+
                     var valtypes = new[] { "jpeg", "jpg", "png", "gif" };
                     var extension = Path.GetExtension(authorimg.FileName).Substring(1);
 
                     if (valtypes.Contains(extension))
                     {
 
-                        
+
                         string fn = hospital.HospitalID + "." + extension;
 
                         //get a direct file path to imgs/hospitals/
@@ -138,7 +154,7 @@ namespace HospitalNew.Controllers
             return View(hospital);
         }
 
-        // POST: Authors/Delete/5
+        // POST: Hospitals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -158,4 +174,5 @@ namespace HospitalNew.Controllers
             base.Dispose(disposing);
         }
     }
- }
+}
+

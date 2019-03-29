@@ -29,9 +29,12 @@ namespace HospitalNew.Models
         [StringLength(int.MaxValue), Display(Name = "Description")]
         public string Description { get; set; }
 
+        [StringLength(int.MaxValue), Display(Name = "Department")]
+        public string Department { get; set; }
+
 
         //Hospital and Job Positions
-        public virtual JobPosition JobPosition { get; set; }
+
 
         //Accepted image formats (jpg/jpeg/png/gif)
         public string ImgType { get; set; }
@@ -40,5 +43,24 @@ namespace HospitalNew.Models
 
         [InverseProperty("Hospital")]
         public List<JobPosition> JobPositions { get; set; }
+
+        //one hospital has many departments
+        public IEnumerable<Department> Departments { get; set; }
+
+        //one hospital has many volunteers
+        public IEnumerable<Volunteer> Volunteers { get; set; }
+
+
+        //foreign key
+        [ForeignKey("Department")]
+        public int DepartmentID { get; set; }
+
+        [ForeignKey("Volunteer")]
+        public int VolunteerID { get; set; }
+
+        [ForeignKey("JobPosition")]
+        public int JobPositionID { get; set; }
+
+
     }
 }

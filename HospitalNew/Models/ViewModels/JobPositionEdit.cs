@@ -11,13 +11,13 @@ namespace HospitalNew.Models.ViewModels
         {
 
         }
-       // list of hospitals
+        // list of hospitals
 
         public virtual JobPosition JobPosition { get; set; }
 
         public IEnumerable<Hospital> Hospitals { get; set; }
 
-        public IEnumerable<Resume> Resumes { get; set; }
+        public IEnumerable<JobPosition> JobPositions { get; set; }
     }
 
 }
