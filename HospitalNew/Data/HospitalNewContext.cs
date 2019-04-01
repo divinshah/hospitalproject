@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using HospitalNew.Models;
 
 
 namespace HospitalNew.Models
@@ -29,6 +30,8 @@ namespace HospitalNew.Models
             modelBuilder.Entity<Feedback>().ToTable("Feedback");
             base.OnModelCreating(modelBuilder);
         }
+        public DbSet<HospitalNew.Models.Parking> Parking { get; set; }
+        public DbSet<HospitalNew.Models.Donor> Donor { get; set; }
 
     }
 

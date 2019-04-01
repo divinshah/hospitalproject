@@ -1,0 +1,47 @@
+﻿@model IEnumerable<HospitalNew.Models.Parking>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.VisitorName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VisitoCarNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParkingPurpose)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VisitorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VisitoCarNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParkingPurpose)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ParkingID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ParkingID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ParkingID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
