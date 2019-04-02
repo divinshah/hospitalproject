@@ -11,36 +11,15 @@ using System;
 namespace HospitalNew.Migrations
 {
     [DbContext(typeof(HospitalNewContext))]
-    partial class HospitalNewContextModelSnapshot : ModelSnapshot
+    [Migration("20190329182516_initial_migration_3")]
+    partial class initial_migration_3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("HospitalNew.Models.Alert", b =>
-                {
-                    b.Property<int>("AlertId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("alertContent")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("alertDate")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("alertTopic")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.HasKey("AlertId");
-
-                    b.ToTable("Alert");
-                });
 
             modelBuilder.Entity("HospitalNew.Models.ApplicationUser", b =>
                 {
@@ -120,57 +99,55 @@ namespace HospitalNew.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
+                    b.Property<int?>("scheduleLocationId");
+
                     b.HasKey("LocationId");
+
+                    b.HasIndex("scheduleLocationId");
 
                     b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("HospitalNew.Models.Schedule", b =>
                 {
-                    b.Property<int>("ScheduleId")
+                    b.Property<int>("LocationId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Date")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate();
+                    b.Property<int?>("scheduleLocationId");
 
-                    b.Property<int>("StaffId");
+                    b.HasKey("LocationId");
 
-                    b.Property<int>("locationId");
-
-                    b.HasKey("ScheduleId");
-
-                    b.HasIndex("StaffId");
-
-                    b.HasIndex("locationId")
-                        .IsUnique();
+                    b.HasIndex("scheduleLocationId");
 
                     b.ToTable("Schedule");
                 });
 
-            modelBuilder.Entity("HospitalNew.Models.Staff", b =>
+            modelBuilder.Entity("HospitalNew.Models.Stuff", b =>
                 {
-                    b.Property<int>("StaffId")
+                    b.Property<int>("StuffId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("StaffDepartment")
+                    b.Property<string>("StuffDepartment")
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<string>("StaffFirstName")
+                    b.Property<string>("StuffFirstName")
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<string>("StaffLastName")
+                    b.Property<int?>("StuffId1");
+
+                    b.Property<string>("StuffLastName")
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<string>("StaffPosition")
+                    b.Property<string>("StuffPosition")
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.HasKey("StaffId");
+                    b.HasKey("StuffId");
+
+                    b.HasIndex("StuffId1");
 
                     b.ToTable("Stuff");
                 });
@@ -283,17 +260,25 @@ namespace HospitalNew.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("HospitalNew.Models.Locations", b =>
+                {
+                    b.HasOne("HospitalNew.Models.Schedule", "schedule")
+                        .WithMany("location")
+                        .HasForeignKey("scheduleLocationId");
+                });
+
             modelBuilder.Entity("HospitalNew.Models.Schedule", b =>
                 {
-                    b.HasOne("HospitalNew.Models.Staff", "staff")
-                        .WithMany("Schedules")
-                        .HasForeignKey("StaffId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("HospitalNew.Models.Schedule", "schedule")
+                        .WithMany()
+                        .HasForeignKey("scheduleLocationId");
+                });
 
-                    b.HasOne("HospitalNew.Models.Locations", "location")
-                        .WithOne("schedule")
-                        .HasForeignKey("HospitalNew.Models.Schedule", "locationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity("HospitalNew.Models.Stuff", b =>
+                {
+                    b.HasOne("HospitalNew.Models.Stuff")
+                        .WithMany("stuff")
+                        .HasForeignKey("StuffId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

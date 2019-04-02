@@ -11,36 +11,15 @@ using System;
 namespace HospitalNew.Migrations
 {
     [DbContext(typeof(HospitalNewContext))]
-    partial class HospitalNewContextModelSnapshot : ModelSnapshot
+    [Migration("20190329181717_initial_migration_2")]
+    partial class initial_migration_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("HospitalNew.Models.Alert", b =>
-                {
-                    b.Property<int>("AlertId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("alertContent")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("alertDate")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("alertTopic")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.HasKey("AlertId");
-
-                    b.ToTable("Alert");
-                });
 
             modelBuilder.Entity("HospitalNew.Models.ApplicationUser", b =>
                 {
@@ -107,70 +86,32 @@ namespace HospitalNew.Migrations
                     b.ToTable("Feedback");
                 });
 
-            modelBuilder.Entity("HospitalNew.Models.Locations", b =>
+            modelBuilder.Entity("HospitalNew.Models.Stuff", b =>
                 {
-                    b.Property<int>("LocationId")
+                    b.Property<int>("StuffId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("LocationAddress")
+                    b.Property<string>("StuffDepartment")
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<string>("LocationName")
+                    b.Property<string>("StuffFirstName")
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.HasKey("LocationId");
+                    b.Property<int?>("StuffId1");
 
-                    b.ToTable("Locations");
-                });
-
-            modelBuilder.Entity("HospitalNew.Models.Schedule", b =>
-                {
-                    b.Property<int>("ScheduleId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Date")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<int>("StaffId");
-
-                    b.Property<int>("locationId");
-
-                    b.HasKey("ScheduleId");
-
-                    b.HasIndex("StaffId");
-
-                    b.HasIndex("locationId")
-                        .IsUnique();
-
-                    b.ToTable("Schedule");
-                });
-
-            modelBuilder.Entity("HospitalNew.Models.Staff", b =>
-                {
-                    b.Property<int>("StaffId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("StaffDepartment")
+                    b.Property<string>("StuffLastName")
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<string>("StaffFirstName")
+                    b.Property<string>("StuffPosition")
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<string>("StaffLastName")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                    b.HasKey("StuffId");
 
-                    b.Property<string>("StaffPosition")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.HasKey("StaffId");
+                    b.HasIndex("StuffId1");
 
                     b.ToTable("Stuff");
                 });
@@ -283,17 +224,11 @@ namespace HospitalNew.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("HospitalNew.Models.Schedule", b =>
+            modelBuilder.Entity("HospitalNew.Models.Stuff", b =>
                 {
-                    b.HasOne("HospitalNew.Models.Staff", "staff")
-                        .WithMany("Schedules")
-                        .HasForeignKey("StaffId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("HospitalNew.Models.Locations", "location")
-                        .WithOne("schedule")
-                        .HasForeignKey("HospitalNew.Models.Schedule", "locationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("HospitalNew.Models.Stuff")
+                        .WithMany("stuff")
+                        .HasForeignKey("StuffId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
